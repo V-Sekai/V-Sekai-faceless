@@ -14,7 +14,7 @@ jobs:
         mkdir build
         cmake .. -GNinja
         ninja all
-    - uses: papeloto/action-zip@v1
+    - uses: papeloto/action-zip@v2
       with:
         files: build/bin/
         recursive: false
