@@ -12,15 +12,6 @@ add_subdirectory( thirdparty/sdl )
 set(THIRDPARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty)
 set(SHARED_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/shared)
 
-# Check that the steamVR SDK is installed 
-# (needed to prevent a segfault in OpenVR).
-if(CMAKE_HOST_UNIX)
-  find_file(OPENVRPATHS openvrpaths.vrpath PATHS $ENV{HOME}/.config/openvr "$ENV{HOME}/Library/Application Support/OpenVR/.openvr")
-  if(${OPENVRPATHS} MATCHES OPENVRPATHS-NOTFOUND)
-    message(FATAL_ERROR "${OPENVRPATHS} Please install SteamVR SDK to continue..")
-  endif()
-endif()
-
 if(WIN32)
 set(ARCH_TARGET win64)
 elseif(LINUX)
