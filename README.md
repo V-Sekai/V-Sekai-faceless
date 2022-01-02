@@ -13,3 +13,9 @@ To use this, you must open your `Steam/config/steamvr.vrsettings` file and set t
 }
 ```
 This will allow the driver used for the VR controllers to work concurrently with this driver. Finally, enable the driver in the Startup section of SteamVR settings.
+
+# Running faceless
+
+When the OpenVR driver is running a H symbol will appear.
+
+![image](https://user-images.githubusercontent.com/32321/147889239-12217cec-47c8-4b8d-b835-f15527eebc4d.png)
