@@ -1,4 +1,4 @@
-name: Build Windows
+name: Build Linux
 
 on:
   push:
@@ -6,16 +6,19 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
       with:
         submodules: recursive
     - name: cmake
       run: |
+        apt install -y ninja-build
+    - name: cmake
+      run: |
         mkdir build
         cd build 
-        cmake .. -G"Visual Studio 16 2019"
+        cmake .. -G"ninja"
         cmake --build . --config RelWithDebInfo 
     - name: Easy Zip Files
       uses: vimtor/action-zip@v1
@@ -26,8 +29,8 @@ jobs:
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: latest-windows
+        automatic_release_tag: latest-linux
         prerelease: true
-        title: Faceless Windows
+        title: Faceless Linux
         files: |
           faceless.zip
