@@ -12,6 +12,7 @@ jobs:
     - name: cmake
       run: |
         mkdir build
+        cd build
         cmake .. -GNinja
         ninja all
     - name: Easy Zip Files
