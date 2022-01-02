@@ -14,7 +14,7 @@ set(SHARED_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/shared)
 
 if(WIN32)
 set(ARCH_TARGET win64)
-elseif(LINUX)
+elseif(UNIX)
 set(ARCH_TARGET linux64)
 endif()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/drivers/faceless/bin/${ARCH_TARGET})
