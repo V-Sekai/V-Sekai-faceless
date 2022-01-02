@@ -12,9 +12,7 @@ jobs:
     - name: cmake
       run: |
         mkdir build
-        cd build
-        cmake .. -GNinja
-        ninja all
+        cmake --build . --config RelWithDebInfo 
     - name: Easy Zip Files
       uses: vimtor/action-zip@v1
       with:
