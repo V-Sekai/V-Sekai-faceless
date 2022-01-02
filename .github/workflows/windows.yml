@@ -9,6 +9,7 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
+      submodules: recursive
     - name: cmake
       run: |
         mkdir build
