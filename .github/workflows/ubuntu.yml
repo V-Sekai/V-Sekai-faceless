@@ -13,7 +13,7 @@ jobs:
         submodules: recursive
     - name: cmake
       run: |
-        apt install -y ninja-build
+        sudo apt install -y ninja-build
     - name: cmake
       run: |
         mkdir build
