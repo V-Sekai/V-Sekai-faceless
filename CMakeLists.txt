@@ -17,19 +17,9 @@ set(ARCH_TARGET win64)
 elseif(UNIX)
 set(ARCH_TARGET linux64)
 endif()
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/drivers/faceless/bin/${ARCH_TARGET})
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/drivers/faceless/bin/${ARCH_TARGET})
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/drivers/faceless/bin/${ARCH_TARGET})
-# Force output directory destination, especially for MSVC (@so7747857).
-function(setTargetOutputDirectory target)
-  foreach(type RUNTIME LIBRARY ARCHIVE)
-    set_target_properties(${target} PROPERTIES
-      ${type}_OUTPUT_DIRECTORY         ${CMAKE_${type}_OUTPUT_DIRECTORY}
-      ${type}_OUTPUT_DIRECTORY_DEBUG   ${CMAKE_${type}_OUTPUT_DIRECTORY}
-      ${type}_OUTPUT_DIRECTORY_RELEASE ${CMAKE_${type}_OUTPUT_DIRECTORY}
-    )
-  endforeach()
-endfunction()
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/faceless/bin/${ARCH_TARGET})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/faceless/bin/${ARCH_TARGET})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/faceless/bin/${ARCH_TARGET})
 
 # -----------------------------------------------------------------------------
 ## COMPILER DETECTION ##

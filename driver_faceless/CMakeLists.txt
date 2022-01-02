@@ -8,11 +8,20 @@ add_library(driver_faceless SHARED
 add_definitions(-DDRIVER_SAMPLE_EXPORTS)
 
 target_link_libraries(driver_faceless
-  ${CMAKE_SOURCE_DIR}/thirdparty/openvr/lib/win64/openvr_api.lib
   ${CMAKE_DL_LIBS}
 )
 
 
-install (TARGETS driver_faceless
-        RUNTIME DESTINATION ${CMAKE_SOURCE_DIR}/bin/drivers/faceless/bin/win64
+if(WIN32)
+set(ARCH_TARGET win64)
+elseif(UNIX)
+set(ARCH_TARGET linux64)
+endif()
+
+add_custom_target(copy-files ALL
+COMMAND ${CMAKE_COMMAND} -E copy_directory
+${CMAKE_SOURCE_DIR}/bin/drivers/faceless
+${CMAKE_BINARY_DIR}/faceless
 )
+
+install(TARGETS driver_faceless)

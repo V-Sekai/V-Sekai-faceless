@@ -23,7 +23,7 @@ jobs:
     - name: Easy Zip Files
       uses: vimtor/action-zip@v1
       with:
-        files: bin/drivers
+        files: build/faceless
         recursive: false
         dest: faceless.zip
     - uses: marvinpinto/action-automatic-releases@v1.2.1
