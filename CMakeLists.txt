@@ -69,9 +69,6 @@ COMMAND ${CMAKE_COMMAND} -E copy_directory
 ${CMAKE_SOURCE_DIR}/bin/drivers/faceless
 ${CMAKE_BINARY_DIR}/faceless
 )
-if(WIN32)
-set(ARCH_TARGET win64)
-elseif(UNIX)
-set(ARCH_TARGET linux64)
-endif()
-install(TARGETS driver_faceless DESTINATION ${CMAKE_BINARY_DIR}/faceless/bin/${ARCH_TARGET}/)
+add_custom_command(TARGET driver_faceless POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:driver_faceless> ${CMAKE_BINARY_DIR}/faceless/bin/${ARCH_TARGET}/${targetfile}
+)
