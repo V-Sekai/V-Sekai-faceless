@@ -20,12 +20,13 @@ jobs:
         cd build 
         cmake .. -G"Ninja"
         cmake --build . --config RelWithDebInfo 
-    - name: Easy Zip Files
-      uses: vimtor/action-zip@v1
+    - name: Archive Release
+      uses: thedoctor0/zip-release@master
       with:
-        files: build/faceless
-        recursive: false
-        dest: faceless.zip
+        type: 'zip'
+        path: faceless
+        directory: build
+        filename: 'faceless.zip'
     - uses: marvinpinto/action-automatic-releases@v1.2.1
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
