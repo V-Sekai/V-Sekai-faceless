@@ -12,15 +12,6 @@ add_subdirectory( thirdparty/sdl )
 set(THIRDPARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty)
 set(SHARED_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/shared)
 
-if(WIN32)
-set(ARCH_TARGET win64)
-elseif(UNIX)
-set(ARCH_TARGET linux64)
-endif()
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/faceless/bin/${ARCH_TARGET})
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/faceless/bin/${ARCH_TARGET})
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/faceless/bin/${ARCH_TARGET})
-
 # -----------------------------------------------------------------------------
 ## COMPILER DETECTION ##
 if(   (${CMAKE_CXX_COMPILER_ID} MATCHES "GNU")
@@ -54,4 +45,33 @@ include_directories(
   ${OPENVR_INCLUDE_DIR}
 )
 
-add_subdirectory(driver_faceless)
+include_directories(thirdparty/openvr/headers)
+add_library(driver_faceless SHARED
+  driver_faceless/driverlog.cpp
+  driver_faceless/driverlog.h
+  driver_faceless/driver_faceless.cpp
+)
+
+add_definitions(-DDRIVER_SAMPLE_EXPORTS)
+
+target_link_libraries(driver_faceless
+  ${CMAKE_DL_LIBS}
+)
+
+if(WIN32)
+set(ARCH_TARGET win64)
+elseif(UNIX)
+set(ARCH_TARGET linux64)
+endif()
+
+add_custom_target(copy-files ALL
+COMMAND ${CMAKE_COMMAND} -E copy_directory
+${CMAKE_SOURCE_DIR}/bin/drivers/faceless
+${CMAKE_BINARY_DIR}/faceless
+)
+if(WIN32)
+set(ARCH_TARGET win64)
+elseif(UNIX)
+set(ARCH_TARGET linux64)
+endif()
+install(TARGETS driver_faceless DESTINATION ${CMAKE_BINARY_DIR}/faceless/bin/${ARCH_TARGET}/)
