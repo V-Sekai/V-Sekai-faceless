@@ -19,7 +19,7 @@ jobs:
         mkdir build
         cd build 
         cmake .. -G"Ninja"
-        cmake --build . --config RelWithDebInfo 
+        cmake --build .
     - name: Archive Release
       uses: thedoctor0/zip-release@master
       with:
