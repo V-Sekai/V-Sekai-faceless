@@ -23,7 +23,7 @@ jobs:
         type: 'zip'
         path: faceless
         directory: build
-        filename: 'faceless.zip'
+        filename: 'faceless-windows.zip'
     - uses: marvinpinto/action-automatic-releases@v1.2.1
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -31,4 +31,4 @@ jobs:
         prerelease: true
         title: Faceless Windows
         files: |
-          build/faceless.zip
+          build/faceless-windows.zip
