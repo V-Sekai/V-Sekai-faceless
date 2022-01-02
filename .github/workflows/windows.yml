@@ -9,7 +9,8 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
-      submodules: recursive
+    - name: Checkout submodules
+      uses: textbook/git-checkout-submodule-action@master
     - name: cmake
       run: |
         mkdir build
