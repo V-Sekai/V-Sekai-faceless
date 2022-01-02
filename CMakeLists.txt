@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0.2)
 
-project(openvr_samples)
+project(faceless)
 
 set(PLATFORM 64)
 
@@ -39,9 +39,7 @@ file(GLOB SHARED_SRC_FILES
 
 include_directories(
   .
-  ${OPENGL_INCLUDE_DIR}
   ${SDL2_INCLUDE_DIR}
-  ${QT_INCLUDE_DIRS}
   ${OPENVR_INCLUDE_DIR}
 )
 
@@ -50,12 +48,6 @@ add_library(driver_faceless SHARED
   driver_faceless/driverlog.cpp
   driver_faceless/driverlog.h
   driver_faceless/driver_faceless.cpp
-)
-
-add_definitions(-DDRIVER_SAMPLE_EXPORTS)
-
-target_link_libraries(driver_faceless
-  ${CMAKE_DL_LIBS}
 )
 
 if(WIN32)
