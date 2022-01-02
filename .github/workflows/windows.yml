@@ -10,10 +10,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: cmake
-        run: |
-          mkdir build
-          cmake .. -GNinja
-          ninja all
+      run: |
+        mkdir build
+        cmake .. -GNinja
+        ninja all
     - uses: papeloto/action-zip@v1
       with:
         files: build/bin/
