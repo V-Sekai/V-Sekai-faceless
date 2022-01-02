@@ -16,7 +16,7 @@ jobs:
         mkdir build
         cd build 
         cmake .. -G"Visual Studio 16 2019"
-        cmake --build .
+        cmake --build . --config RelWithDebInfo 
     - name: Archive Release
       uses: thedoctor0/zip-release@master
       with:
