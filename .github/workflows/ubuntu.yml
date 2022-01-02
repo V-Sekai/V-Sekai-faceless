@@ -34,4 +34,4 @@ jobs:
         prerelease: true
         title: Faceless Linux
         files: |
-          faceless.zip
+          build/faceless.zip

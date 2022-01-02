@@ -31,4 +31,4 @@ jobs:
         prerelease: true
         title: Faceless Windows
         files: |
-          faceless.zip
+          build/faceless.zip
