@@ -1,3 +1,6 @@
 [submodule "thirdparty/sdl"]
 	path = thirdparty/sdl
 	url = https://github.com/libsdl-org/SDL.git
+[submodule "thirdparty/openvr"]
+	path = thirdparty/openvr
+	url = https://github.com/ValveSoftware/openvr.git

@@ -4,6 +4,7 @@
 #include <vector>
 #include <thread>
 #include <chrono>
+#include <cmath>
 
 #if defined( _WINDOWS )
 #include <windows.h>

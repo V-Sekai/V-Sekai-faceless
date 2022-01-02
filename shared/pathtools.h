@@ -106,7 +106,7 @@ std::string GetUserDocumentsPath();
 #endif
 
 //-----------------------------------------------------------------------------
-#if defined(WIN32)
+#if defined(WIN32) || defined(__MINGW32__ )
 #define DYNAMIC_LIB_EXT	".dll"
 #ifdef _WIN64
 #define PLATSUBDIR	"win64"

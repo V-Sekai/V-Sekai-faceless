@@ -1,2 +1,6 @@
 
 build/
+
+*.dll
+
+bin/drivers/faceless/bin/win64/libdriver_faceless.dll.a
