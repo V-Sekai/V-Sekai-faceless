@@ -16,31 +16,9 @@ endif()
 message(STATUS "Compilation set for ${PLATFORM}bits architectures.")
 
 set(SDL_REQUIRED_LIBRARIES SDL2)
-
-if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-  add_definitions(-DLINUX -DPOSIX)
-  set(ARCH_TARGET linux64)
-
-  if(${PLATFORM} MATCHES 32)
-    message(WARNING "OpenVR x86 binaries not provided on GNU/Linux.")
-  endif()
-elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-  set(CMAKE_MACOSX_RPATH 0)
-  add_definitions(-DOSX -DPOSIX)
-  set(ARCH_TARGET osx32)
-
-elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-  set(SDL_REQUIRED_LIBRARIES ${SDL_REQUIRED_LIBRARIES} SDL2main)
-  add_definitions(-D_WIN32)
-  set(ARCH_TARGET win${PLATFORM})
-
-  # Binaries path for thirdparties are not generics so we try to guess their suffixes.
-  set(WINDOWS_PATH_SUFFIXES win${PLATFORM} Win${PLATFORM} x${PLATFORM})
-
-  if(${PLATFORM} MATCHES 64)
-    message(WARNING "SDL x64 runtime binaries not provided on Windows.")
-  endif()
-endif()
+set( SDL_STATIC ON CACHE BOOL "" FORCE )
+set( SDL_SHARED OFF CACHE BOOL "" FORCE )
+add_subdirectory( thirdparty/sdl )
 
 # -----------------------------------------------------------------------------
 ## PATHS ##
@@ -137,18 +115,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     list(APPEND SDL2_LIBRARIES ${${lib}_LIBRARY})
   endforeach()
 else()
-  foreach(lib ${SDL_REQUIRED_LIBRARIES})
-    find_library(${lib}_LIBRARY
-      NAMES
-        ${lib}
-      PATHS
-        ${THIRDPARTY_DIR}/sdl2-2.0.3/bin
-      PATH_SUFFIXES
-        linux${PLATFORM}
-        ${WINDOWS_PATH_SUFFIXES}
-    )
-    list(APPEND SDL2_LIBRARIES ${${lib}_LIBRARY})
-  endforeach()
+  list(APPEND SDL2_LIBRARIES SDL2main SDL2-static)
 endif()
 set(SDL2_INCLUDE_DIR ${THIRDPARTY_DIR}/sdl2-2.0.3/include)
 
