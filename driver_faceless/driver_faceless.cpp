@@ -330,10 +330,6 @@ public:
 			pose.vecPosition[1] = 0.5 * (pos1[1] + pos2[1]) + 0.3;
 			pose.vecPosition[2] = 0.5 * (pos1[2] + pos2[2]);
 
-			// guess rotation
-			double euler[3];
-			//HmdMatrix34_Rotation(mat1, euler);
-			//pose.qRotation = HmdQuaternion_FromEuler(euler[0], euler[1], euler[2]);
 			pose.qRotation = HmdMatrix34_ToQuat(&mat1);
 		}
 
