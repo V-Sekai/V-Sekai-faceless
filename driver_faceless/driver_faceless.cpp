@@ -169,7 +169,8 @@ public:
 		vr2Osc_options.motion_in_place = false; // Disables root translation
 		vr2Osc_options.interval = std::chrono::milliseconds((1000 / fps) - delay);
 		vr2Osc_options.fps = fps;
-		s.Run();
+		// TODO fire 2022-01-02 OSC Takes over
+		// s.Run();
 	}
 
 	virtual ~CFacelessDeviceDriver()
