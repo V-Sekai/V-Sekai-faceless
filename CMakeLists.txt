@@ -43,12 +43,45 @@ include_directories(
   ${OPENVR_INCLUDE_DIR}
 )
 
+if(WIN32)
+    set(IpSystemTypePath ip/win32)
+    set(LIBS ${LIBS} Ws2_32 winmm)
+else()
+    set(IpSystemTypePath ip/posix)
+endif()
+
+include_directories(${THIRDPARTY_DIR})
+
+add_library(oscpack
+    ${THIRDPARTY_DIR}/ip/IpEndpointName.h
+    ${THIRDPARTY_DIR}/ip/IpEndpointName.cpp
+    ${THIRDPARTY_DIR}/ip/NetworkingUtils.h
+    ${THIRDPARTY_DIR}/${IpSystemTypePath}/NetworkingUtils.cpp
+    ${THIRDPARTY_DIR}/ip/UdpSocket.h
+    ${THIRDPARTY_DIR}/${IpSystemTypePath}/UdpSocket.cpp
+    ${THIRDPARTY_DIR}/ip/PacketListener.h
+    ${THIRDPARTY_DIR}/ip/TimerListener.h
+    ${THIRDPARTY_DIR}/osc/OscTypes.h
+    ${THIRDPARTY_DIR}/osc/OscTypes.cpp 
+    ${THIRDPARTY_DIR}/osc/OscHostEndianness.h
+    ${THIRDPARTY_DIR}/osc/OscException.h
+    ${THIRDPARTY_DIR}/osc/OscPacketListener.h
+    ${THIRDPARTY_DIR}/osc/MessageMappingOscPacketListener.h
+    ${THIRDPARTY_DIR}/osc/OscReceivedElements.h
+    ${THIRDPARTY_DIR}/osc/OscReceivedElements.cpp
+    ${THIRDPARTY_DIR}/osc/OscPrintReceivedElements.h
+    ${THIRDPARTY_DIR}/osc/OscPrintReceivedElements.cpp
+    ${THIRDPARTY_DIR}/osc/OscOutboundPacketStream.h
+    ${THIRDPARTY_DIR}/osc/OscOutboundPacketStream.cpp
+)
+
 include_directories(thirdparty/openvr/headers)
 add_library(driver_faceless SHARED
   driver_faceless/driverlog.cpp
   driver_faceless/driverlog.h
   driver_faceless/driver_faceless.cpp
 )
+target_link_libraries(driver_faceless oscpack ${LIBS})
 
 if(WIN32)
 set(ARCH_TARGET win64)
