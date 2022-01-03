@@ -81,6 +81,9 @@ add_library(driver_faceless SHARED
   driver_faceless/driverlog.h
   driver_faceless/driver_faceless.cpp
 )
+set_target_properties(driver_faceless PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
+)
 target_link_libraries(driver_faceless oscpack ${LIBS})
 
 if(WIN32)
