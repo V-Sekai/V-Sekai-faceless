@@ -74,6 +74,9 @@ add_library(oscpack
     ${THIRDPARTY_DIR}/osc/OscOutboundPacketStream.h
     ${THIRDPARTY_DIR}/osc/OscOutboundPacketStream.cpp
 )
+set_target_properties(oscpack PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
+)
 
 include_directories(thirdparty/openvr/headers)
 add_library(driver_faceless SHARED
