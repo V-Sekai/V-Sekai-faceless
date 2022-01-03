@@ -21,6 +21,8 @@ This driver (the whole faceless folder) needs to be put in the drivers folder.
 
 To enable faceless, you must open your `Steam/config/steamvr.vrsettings` file and set the `"activateMultipleDrivers" : true,` key true under the `steamvr` sections:
 
+You probably need a comma.
+
 ```json
 "steamvr" : {
     "activateMultipleDrivers" : true
