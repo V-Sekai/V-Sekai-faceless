@@ -7,12 +7,23 @@ The goal is to guesstimate the position of the HMD based on the controller posit
 
 Download either Linux or Windows builds from the release section of the repository.
 
-This driver (the whole faceless folder) can be put in `Steam/steamapps/common/SteamVR/drivers` for use.
+To do this:
 
-To use this, you must open your `Steam/config/steamvr.vrsettings` file and set the `activateMultipleDrivers` key true under the `steamvr` sections:
+1. Open the Steam Library list.
+2. Open SteamRV properties
+3. Open local files
+4. Click Browser
+5. A window will open `Steam/steamapps/common/SteamVR/drivers`
+
+The driver needs to be placed in `Steam/steamapps/common/SteamVR/drivers`.
+
+This driver (the whole faceless folder) needs to be put in the drivers folder.
+
+To enable faceless, you must open your `Steam/config/steamvr.vrsettings` file and set the `"activateMultipleDrivers" : true,` key true under the `steamvr` sections:
+
 ```json
 "steamvr" : {
-      "activateMultipleDrivers" : true
+    "activateMultipleDrivers" : true
 }
 ```
 
