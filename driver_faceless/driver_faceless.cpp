@@ -6,6 +6,8 @@
 #include <chrono>
 #include <cmath>
 
+#include "vr2osc.h"
+
 #if defined( _WINDOWS )
 #include <windows.h>
 #endif
@@ -342,6 +344,18 @@ public:
 		{
 			vr::VRServerDriverHost()->TrackedDevicePoseUpdated( m_unObjectId, GetPose(), sizeof( DriverPose_t ) );
 		}
+		std::uint8_t fps = 60; // Frames per second
+		std::uint8_t delay = 10; // Latency buffer in milliseconds
+		vr2osc_options options = {};
+		int32_t port = 39539;
+		options.motion_in_place = false; // Disables root translation
+		options.interval = std::chrono::milliseconds((1000 / fps) - delay);
+		options.fps = fps;
+		Vr2OscPacketListener listener(options);
+		UdpListeningReceiveSocket s(
+				IpEndpointName( IpEndpointName::ANY_ADDRESS, port ),
+				&listener );
+		s.RunUntilSigInt();
 	}
 
 	std::string GetSerialNumber() const { return m_sSerialNumber; }
