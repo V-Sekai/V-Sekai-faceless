@@ -131,8 +131,17 @@ static const char * const k_pch_Faceless_DisplayFrequency_Float = "displayFreque
 //-----------------------------------------------------------------------------
 class CFacelessDeviceDriver : public vr::ITrackedDeviceServerDriver, public vr::IVRDisplayComponent, vr::IVRVirtualDisplay
 {
+	std::uint8_t fps = 60; // Frames per second
+	std::uint8_t delay = 10; // Latency buffer in milliseconds
+	Vr2Osc_options vr2Osc_options = {};
+	int32_t port = 39539;	
+	Vr2OscPacketListener listener;
+	UdpListeningReceiveSocket s;
 public:
 	CFacelessDeviceDriver()
+	 : listener(vr2Osc_options),
+	 s(IpEndpointName(IpEndpointName::ANY_ADDRESS, port ),
+			&listener)
 	{
 		m_unObjectId = vr::k_unTrackedDeviceIndexInvalid;
 		m_ulPropertyContainer = vr::k_ulInvalidPropertyContainer;
@@ -156,6 +165,11 @@ public:
 		DriverLog( "driver_faceless: Render Target: %d %d\n", m_nRenderWidth, m_nRenderHeight );
 		DriverLog( "driver_faceless: Display Frequency: %f\n", m_flDisplayFrequency );
 		DriverLog( "driver_faceless: IPD: %f\n", m_flIPD );
+
+		vr2Osc_options.motion_in_place = false; // Disables root translation
+		vr2Osc_options.interval = std::chrono::milliseconds((1000 / fps) - delay);
+		vr2Osc_options.fps = fps;
+		s.Run();
 	}
 
 	virtual ~CFacelessDeviceDriver()
@@ -344,23 +358,12 @@ public:
 		{
 			vr::VRServerDriverHost()->TrackedDevicePoseUpdated( m_unObjectId, GetPose(), sizeof( DriverPose_t ) );
 		}
-		std::uint8_t fps = 60; // Frames per second
-		std::uint8_t delay = 10; // Latency buffer in milliseconds
-		vr2osc_options options = {};
-		int32_t port = 39539;
-		options.motion_in_place = false; // Disables root translation
-		options.interval = std::chrono::milliseconds((1000 / fps) - delay);
-		options.fps = fps;
-		Vr2OscPacketListener listener(options);
-		UdpListeningReceiveSocket s(
-				IpEndpointName( IpEndpointName::ANY_ADDRESS, port ),
-				&listener );
-		s.RunUntilSigInt();
 	}
 
 	std::string GetSerialNumber() const { return m_sSerialNumber; }
 
 private:
+
 	vr::TrackedDeviceIndex_t m_unObjectId;
 	vr::PropertyContainerHandle_t m_ulPropertyContainer;
 

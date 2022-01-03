@@ -30,7 +30,7 @@
 #include <cstdlib>
 #include <unordered_map>
 
-struct vr2osc_options
+struct Vr2Osc_options
 {
 	std::string rootbone;
 	bool motion_in_place = false;
@@ -43,7 +43,7 @@ class Vr2OscPacketListener : public osc::OscPacketListener {
 private:
 	std::chrono::steady_clock::time_point lasttime_checked;
 	std::uint32_t frame_count = 0;
-	vr2osc_options options;
+	Vr2Osc_options options;
     
     struct vr2osc_traverse_state
     {
@@ -56,7 +56,7 @@ private:
     } ;
 	vr2osc_traverse_state state;
 public:
-	Vr2OscPacketListener(const vr2osc_options options) : osc::OscPacketListener()
+	Vr2OscPacketListener(const Vr2Osc_options options) : osc::OscPacketListener()
 		, options(options)
 		, state{ false, false, 0, 0, nullptr, nullptr }
 		, lasttime_checked()
