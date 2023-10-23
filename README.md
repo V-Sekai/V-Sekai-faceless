@@ -48,3 +48,7 @@ cmake .. -G"Visual Studio 16 2019" # Can also use "Ninja"
 cmake --build . --config RelWithDebInfo
 # Copy faceless
 ```
+
+# Source
+
+https://github.com/pema99/faceless
